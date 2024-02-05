@@ -48,7 +48,7 @@ you can only directly run following notebook on code ocean for quick experience:
   
 - Fig. 4d
 ```
-  /code/demo/realDataOF_only.ipynb (cannot run)
+  /code/demo/realDataOF_only.ipynb
 ```
   *since the raw data is too large, you may only see the result we have generated offline*
   ![fig4e](./resources/Evaluation_OF.png)
