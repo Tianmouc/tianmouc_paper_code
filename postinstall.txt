@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -e
+
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+pip install opencv-python
+pip install tensorboardX
+conda install tqdm scikit-image imageio 
+conda install imageio
+conda install tqdm
+pip install matplotlib
+pip install pandas
+pip install scipy
+pip install opencv-python-headless
+
+
+# YOLOv5 requirements
+# Usage: pip install -r requirements.txt
+
+# Base ----------------------------------------
+pip install matplotlib>=3.2.2
+pip install numpy>=1.18.5
+pip install opencv-python>=4.1.1
+pip install Pillow>=7.1.2
+pip install PyYAML>=5.3.1
+pip install requests>=2.23.0
+pip install scipy>=1.4.1
+pip install tqdm>=4.64.0
+pip install protobuf==3.20.1  # https://github.com/ultralytics/yolov5/issues/8012
+
+# Logging -------------------------------------
+pip install tensorboard>=2.4.1
+# wandb
+
+# Plotting ------------------------------------
+pip install pandas>=1.1.4
+pip install seaborn>=0.11.0
+
+# Export --------------------------------------
+# coremltools>=5.2  # CoreML export
+# onnx>=1.9.0  # ONNX export
+# onnx-simplifier>=0.4.1  # ONNX simplifier
+# nvidia-pyindex  # TensorRT export
+# nvidia-tensorrt  # TensorRT export
+# scikit-learn==0.19.2  # CoreML quantization
+# tensorflow>=2.4.1  # TFLite export (or tensorflow-cpu, tensorflow-aarch64)
+# tensorflowjs>=3.9.0  # TF.js export
+# openvino-dev  # OpenVINO export
+
+# Extras --------------------------------------
+pip install ipython  # interactive notebook
+pip install psutil  # system utilization
+pip install thop>=0.1.1  # FLOPs computation
+# albumentations>=1.0.3
+# pycocotools>=2.0  # COCO mAP
+# roboflow
+
+pip install scipy
+pip install tqdm
+pip install yacs
+pip install Cython
+pip install matplotlib>=3.2.2
+pip install Pillow
+pip install PyYAML>=5.3
+pip install scipy>=1.4.1
+pip install seaborn
+pip install prefetch_generator
+pip install imageio
+pip install scikit-learn
+
+

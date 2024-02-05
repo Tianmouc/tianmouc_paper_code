@@ -1,0 +1,17 @@
+.history/
+.idea/
+.vscode/
+archive/
+temp/
+*.so
+scripts/huateng_preprocess_batch.py
+scripts/test_gui.py
+scripts/test_huateng_yield.py
+config/archive
+lib/__pycache__
+__pycache__/
+scripts/gen_stdiff_for_fig1.py
+scripts/hdr_test.py
+CMakeFiles
+CMakeCache*
+rod_decoder_py.cpython-39-x86_64-linux-gnu.so

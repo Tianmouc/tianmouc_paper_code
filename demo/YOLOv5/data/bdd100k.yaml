@@ -1,0 +1,25 @@
+# parent
+# ├── yolov5
+# └── datasets (soft link to)
+#     └── bdd100k
+#         └── images_yolo
+#         └── lables_yolo
+
+# Train/val/test sets as 
+    #1) dir: path/to/imgs
+    #2) file: path/to/imgs.txt
+    #3) list: [path/to/imgs1, path/to/imgs2, ..]
+    
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+train: /data/bdd100k_yolo/images/train
+val: /data/bdd100k_yolo/images/val
+# number of classes
+nc: 10
+# class names
+names: ['pedestrian','rider','car','truck','bus','train','motorcycle','bicycle','traffic light','traffic sign']
+
+
+
+
+
+
