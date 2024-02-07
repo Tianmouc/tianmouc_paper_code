@@ -3,6 +3,8 @@
 tensorboardX
 matplotlib
 opencv-python-headless
+ipykernel
+pybind11
 
 # Base ----------------------------------------
 matplotlib>=3.2.2
