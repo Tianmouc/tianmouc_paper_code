@@ -11,144 +11,6 @@ from lib import utils
 #from utils import get_lp_mask
 import torch
 from torch.nn import functional as F
-def cv2_sobel(img_in, weight=[0.5, 0.5], X=True, Y=True, gamma=2.2, blur=False):
-    img = cv2.GaussianBlur(img_in, (3,3), 0) if blur is True else img_in
-    X_AND_Y = X and Y
-    if X is True:
-        grad_x = cv2.Sobel(img, cv2.CV_64F, dx=1, dy=0, ksize=3)
-        grad_x = cv2.convertScaleAbs(grad_x)
-    if Y is True:
-        grad_y = cv2.Sobel(img, cv2.CV_64F, dx=0, dy=1, ksize=3)
-        grad_y = cv2.convertScaleAbs(grad_y)
-    sobel = cv2.addWeighted(grad_x, weight[0], grad_y, weight[1], 2.2) if X_AND_Y is True else grad_x if X is True else grad_y if Y is True else None
-    sobel = cv2.convertScaleAbs(sobel) if sobel is not None else None
-    return sobel
-
-
-def cv2_laplacian(img_in, ksize=3, blur=True):
-    img = cv2.GaussianBlur(img_in, (3,3), 0) if blur is True else img_in
-    laplace = cv2.Laplacian(img_in, cv2.CV_64F, ksize=ksize)
-    laplace = cv2.convertScaleAbs(laplace)
-    laplace = cv2.convertScaleAbs(laplace) if laplace is not None else None
-    return laplace
-
-def gamma_correct(gray, gamma=2.2, perceptual=False, percp_val=100):
-    #gray_gamma = 100 * np.sqrt(pow((gray / 255.0), gamma))
-    gray_gamma = 255.0 * pow(((gray) / 255.0), gamma) if perceptual is False else percp_val * np.sqrt(pow((gray / 255.0), gamma))
-    return gray_gamma
-
-def HOG_GRAY_MAG(gray, bitdepth=8, mode='linear'):
-    #mode = liner, or log
-    kx = np.array([ [0, 0, 0],
-                    [-1, 0, 1],
-                    [ 0, 0, 0]])
-    ky = np.array([ [0, -1, 0],
-                    [0, 0, 0],
-                    [0, 1, 0]])
-    #kx = np.array([-1, 0, 1])
-    gray[(gray - 0) < 1e-6]  +=  1.0
-    img_in = gray if mode == 'linear' else np.log10(gray) if mode == 'log' else None
-    gx = cv2.filter2D(img_in,-1,kx)
-    gy = cv2.filter2D(img_in,-1,ky)
-    #gx2 = gx * gx
-    #gy2 = gy * gy
-    grad = np.sqrt(gx * gx + gy * gy)
-    if mode == 'linear':
-        if bitdepth == 8:
-            grad = grad / 16
-            img_conv = grad.astype(np.uint8)
-        elif bitdepth == 3:
-            grad = grad / 512
-            img_conv = grad.astype(np.uint8)
-            img_conv = img_conv * 36
-        img_conv = 255 - img_conv
-    elif mode == 'log':
-        if bitdepth == 2:
-            dt=2
-            img_conv = np.zeros(grad.shape, dtype=np.uint8)          
-            for x in range(0, grad.shape[1]):
-                for y in range(0, gray.shape[0]):
-                    #pix = 10 ** grad[y, x]
-                    pix = grad[y, x]
-                    if pix > dt:
-                        img_conv[y,x] = 0
-                    elif pix < 1/dt:
-                        img_conv[y,x] = 255
-                    else:
-                        img_conv[y,x] = 128
-        if bitdepth == 3:
-            dt1, dt2, dt3 = 1.3, 2.0, 4.2
-            img_conv = np.zeros(grad.shape, dtype=np.uint8)          
-            for x in range(0, grad.shape[1]):
-                for y in range(0, gray.shape[0]):
-                    #pix = 10 ** grad[y, x]
-                    pix = grad[y, x]
-                    if pix > dt3:
-                        img_conv[y,x] = 0
-                    elif pix < dt3 and pix > dt2:
-                        img_conv[y,x] = 43
-                    elif pix < dt2 and pix > dt1:
-                        img_conv[y,x] = 86
-                    elif pix < dt1 and pix > 1/dt1:
-                        img_conv[y,x] = 126 #255
-                    elif pix < 1/dt1 and pix > 1/dt2:
-                        img_conv[y,x] = 169 #212
-                    elif pix < 1/dt2 and pix > 1/dt3:
-                        img_conv[y,x] = 212#169
-                    elif pix < 1/dt3:
-                        img_conv[y,x] = 255#126
-                    
-            
-    return img_conv
-
-def HOG_GRAY_MAG_log(gray, bitdepth=3):
-    maxv = np.log10(4095/1)
-    gx = np.zeros(gray.shape, dtype=np.float64)
-    gy = np.zeros(gray.shape, dtype=np.float64)
-    gray_pad = np.pad(gray, 1, mode='edge')
-    gray_pad[(gray_pad - 0) < 1e-6]  +=  1.0
-    for x in range(0, gray.shape[1]):
-        for y in range(0, gray.shape[0]):
-            xl, xr = gray_pad[y+1, x], gray_pad[y+1, x+2]
-            yu, yd = gray_pad[y, x+1], gray_pad[y+2, x+1]
-            gx[y, x] = xr / xl
-            gy[y, x] = yd / yu
-    gx = np.log10(gx)
-    gy = np.log10(gy)
-    grad = np.sqrt(gx * gx + gy * gy) / maxv
-    if bitdepth == 8:
-        #grad = grad / 16
-        grad = grad * 255
-        img_conv = grad.astype(np.uint8)
-    elif bitdepth == 3:
-        grad = grad * 8
-        img_conv = grad.astype(np.uint8) * 32
-    img_conv = 255 - img_conv
-    return img_conv
-            
-    
-
-def gray_ctrst_enhance(gray, gamma=2.2):
-    #  Bi, Y., & Andreopoulos, Y. (2017, September). "PIX2NVS" 2017 IEEE ICIP
-    lum = 100 * np.sqrt(pow((gray / 255.0), gamma))
-    gray_ctrst_enhance = np.zeros_like(lum)
-    lum = np.pad(lum, ((1,1), (1,1)), 'edge')
-    for y in range(0, gray_ctrst_enhance.shape[0]):
-        for x in range(0, gray_ctrst_enhance.shape[1]):
-            y_l = y + 1
-            x_l = x + 1
-            gray_ctrst_enhance[y, x] = (abs(lum[y_l,x_l] - lum[y_l,x_l-1]) + abs(lum[y_l,x_l] - lum[y_l, x_l+1]) + abs(lum[y_l, x_l] - lum[y_l-1, x_l]) + abs(lum[y_l, x_l] - lum[y_l+1, x_l])) / 4.0
-    return gray_ctrst_enhance
-
-def log_intesnsity(gray, th = 20):
-    #  Bi, Y., & Andreopoulos, Y. (2017, September). "PIX2NVS" 2017 IEEE ICIP
-    l = np.zeros_like(gray)
-    for y in range(0, gray.shape[0]):
-        for x in range(0, gray.shape[1]):
-            l[y, x] = log(gray[y,x]) if gray[y,x] > th else gray[y,x]
-    return l
-
-
 def rgb2gray(rgb, type='ISBN', device='cpu'):
     if device == 'cpu':
         r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
@@ -174,37 +36,6 @@ def rgb2bayer(rgb=None):
     bayer[1::2, 0::2] = rgb[1::2, 0::2, 1]  # green blue
     return bayer
 
-def bayer_interpolation(bayer, sdiff, gc_coeff):
-        #max_v = torch.max(bayer.cpu())
-        grad_conv_w = torch.zeros([1,1,3,3])
-        grad_conv_w[0,0,:,:] = torch.FloatTensor([[1, 0, 1], [0, 0, 0], [1, 0, 1]]) * 1 / 4
-        conv_w = torch.zeros([1,1,5,5])
-        conv_w[0,0,0, 2] = conv_w[0,0,2,0] = conv_w[0,0,2,4] =conv_w[0,0,4,2] = 1 / 4
-        # 1st step: reconstruct spacial gradient at odd row large pixels
-        grad = torch.mean(sdiff,dim=-1)
-        
-        grad_recon = F.conv2d(grad.unsqueeze(0).unsqueeze(0), grad_conv_w, stride = 1, padding = 1).squeeze(0).squeeze(0)
-
-        grad[0::2, 0::2] = grad_recon[0::2, 0::2]
-
-        # grad is at half resolution compared with bayer, upsample by simple copying
-        grad_up = torch.zeros_like(bayer)
-
-        r_coff = 0.299
-        gr_coff = 0.587
-        gb_coff = 0.587
-        b_coff = 0.114
-
-        grad_up[0::2, 0::2] = grad * r_coff  # red grad
-        grad_up[0::2, 1::2] = grad * gr_coff
-        grad_up[1::2, 0::2] = grad * gb_coff
-        grad_up[1::2, 1::2] = grad * b_coff
-        # 2nd step: fill large pixels with bayer values, using gradient corrected bilinear interpolation
-
-        lp_rgb = F.conv2d(bayer.unsqueeze(0).unsqueeze(0), conv_w, stride = 1, padding = 2).squeeze(0).squeeze(0)
-        lp_mask = torch.FloatTensor(utils.get_lp_mask(*bayer.size()))
-        bayer_intp = bayer + lp_rgb * lp_mask + grad_up * lp_mask * gc_coeff
-        return bayer_intp
 def demosaicing_torch(bayer, bayer_pattern, bitdepth=8):
         # 1st step: reconstruct rgb values at all pixels using algorithm from Henrique Malvar et.al., ICASSP, 2004.
         # simple bilinear interpolation first
@@ -413,13 +244,7 @@ def bayer2rgb(bayer=None, bayer_pattern='rggb', level=1, torch_or_np='np', raw_b
         rgb = demosaicing_torch(bayer=bayer, bayer_pattern=bayer_pattern, bitdepth = raw_bit_depth)
     return rgb
 
-def rgb2hsv_torch(rgb=None, bit_depth=8):
-    
-    return
 
-def rgb2yuv_torch(rgb=None, bit_depth=8):
-    
-    return
 # Compute psnr between 2 image
 def psnr(img1, img2):
     mse = np.std(img1 - img2)
@@ -631,3 +456,24 @@ def demosaicing_npy(bayer=None, bayer_pattern='rggb', level=0 ,bitdepth=8):
     
 
 
+def AWBeasy(rgb):
+    rgb = rgb.astype(np.float32)
+    r = rgb[:,:,0]
+    g = rgb[:,:,1]
+    b = rgb[:,:,2]
+    r_avg = np.mean(r)
+    g_avg = np.mean(g)
+    b_avg = np.mean(b)
+    k = (r_avg + g_avg + b_avg) / 3
+    kr = k / r_avg
+    kg = k / g_avg
+    kb = k / b_avg
+    r *= kr
+    g *= kg
+    b *= kb
+    rgb_awb = np.zeros_like(rgb)
+    rgb_awb[:,:,0] = r
+    rgb_awb[:,:,1] = g
+    rgb_awb[:,:,2] = b
+    rgb_awb = rgb_awb.astype(np.uint16)
+    return rgb_awb
