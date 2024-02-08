@@ -313,6 +313,12 @@ class TianmoucDataReader():
         sample['idx'] = idx
         sample['ct1'] = coneTimeStamp1
         sample['ct2'] = coneTimeStamp2
+        
+        rodFileID = rodRange[0] // self.rod_img_per_file
+        rodFilename = self.fileDict[key]['rod'][rodFileID]
+        conefilename = self.fileDict[key]['cone'][coneRange[0]]
+        
+        sample['meta'] = {'rodf':rodFilename,'conef':conefilename}
 
         return sample
     
