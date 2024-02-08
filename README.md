@@ -24,17 +24,28 @@
 │          └── recon_data : some clips for reconstruction
 
 
+## requirement
+
+```bash
+git clone  
+conda create -n tianmouc python=3.10
+sh install.sh
+```
+
 ## EASY START
 
-you can only directly run following notebook on code ocean for quick experience:
+The code are replicated using python with jupyter notebook
 
 - Fig. 4 with mAP evaluation
 ```
   /code/demo/Evaluation_complex.ipynb
 ```
   ![fig4e](./resources/Evaluation_complex.png)
+  
   ![fig4e](./resources/Evaluation_flash.png)
+  
   *the OF data need to be calculated using raw data*
+  
   ![fig4e](./resources/Evaluation_OF.png)
   
 You can change the  **key(name) of dataset** to find more demo for Fig4 or automotive driving 
@@ -46,13 +57,5 @@ The labeled datasets are in /data/tianmouc_evaluation_data
 ```
   ![fig4e](./resources/Reconstruction.png)
   
-
-## requirement
-
-```bash
-git clone  
-conda create -n tianmouc python=3.10
-sh install.sh
-```
 
 
