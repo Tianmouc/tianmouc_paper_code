@@ -37,25 +37,16 @@ sh install.sh
 
 download the dataset in [] and decompress it.
 
-use soft link to create a easy data access for this respo:
+use soft link to create easy data access for this repo:
 
 ```bash
 cd [N_pub_code]
 ln -s [your dataset path] data
-'''
-
-and the director structure will be like
-
-ckpts
-14 days ago 
-demo_data
-13 days ago 
-recon_data
-
+```
 
 ## EASY START
 
-The code are replicated using python with jupyter notebook
+The code is replicated using python with jupyter notebook
 
 - Fig. 4 with mAP evaluation
 ```
