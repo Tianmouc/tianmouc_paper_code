@@ -2,18 +2,6 @@
 
 ## Arch of this project
 
-
-reconstruction : The reconstruction algrithm for tianmouc raw data
-demo         : the automotive driving perception algorithm
-tianmoucv  : some basic algorithm for tianmouc raw data
-datareader : the raw data decoder and data reader
-
-tianmouc_evaluation_data : Part of the labeled data for demo evaluation
-├──ckpts  : 3 pytorch models used in this paper
-├── demo_data : 5 samples used in Fig 4
-├── recon_data : some clips for reconstruction
-
-
 ```
 ├── data -> .../tianmouc_evaluation_data/
 │   ├── ckpts
@@ -25,6 +13,18 @@ tianmouc_evaluation_data : Part of the labeled data for demo evaluation
 ├── resources
 └── tianmoucv
 ```
+
+
+- reconstruction : The reconstruction algrithm for tianmouc raw data
+- demo         : the automotive driving perception algorithm
+- tianmoucv  : some basic algorithm for tianmouc raw data
+- datareader : the raw data decoder and data reader
+
+- tianmouc_evaluation_data : Part of the labeled data for demo evaluation
+-- ckpts  : 3 pytorch models used in this paper
+-- demo_data : 5 samples used in Fig 4
+-- recon_data : some clips for reconstruction
+
 
 ## requirement
 
