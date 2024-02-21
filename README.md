@@ -12,10 +12,7 @@
 
 │      └── datareader : the raw data decoder and data reader
 
-
-├── data
-
-│      ├── tianmouc_evaluation_data : Part of the labeled data for demo evaluation
+│      └── data(tianmouc_evaluation_data): Part of the labeled data for demo evaluation and ckpts
 
 │          └── ckpts  : 3 pytorch models used in this paper
   
@@ -23,6 +20,9 @@
 
 │          └── recon_data : some clips for reconstruction
 
+│      └── resources: some pre-run results.
+
+│      └── install.sh you can use this script for fast env building
 
 ## requirement
 
@@ -31,6 +31,25 @@ git clone
 conda create -n tianmouc python=3.10
 sh install.sh
 ```
+## prepare Dataset
+
+download the dataset in [] and decompress it.
+
+use soft link to create a easy data access for this respo:
+
+```bash
+cd [N_pub_code]
+ln -s [your dataset path] data
+'''
+
+and the director structure will be like
+
+ckpts
+14 days ago 
+demo_data
+13 days ago 
+recon_data
+
 
 ## EASY START
 
