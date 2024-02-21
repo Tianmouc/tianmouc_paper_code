@@ -21,9 +21,9 @@
 - datareader : the raw data decoder and data reader
 
 - tianmouc_evaluation_data : Part of the labeled data for demo evaluation
--- ckpts  : 3 pytorch models used in this paper
--- demo_data : 5 samples used in Fig 4
--- recon_data : some clips for reconstruction
+  - ckpts  : 3 pytorch models used in this paper
+  - demo_data : 5 samples used in Fig 4
+  - recon_data : some clips for reconstruction
 
 
 ## requirement
