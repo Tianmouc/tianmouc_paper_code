@@ -2,27 +2,29 @@
 
 ## Arch of this project
 
-├── code
 
-│      └── reconstruction : The reconstruction algrithm for tianmouc raw data
+reconstruction : The reconstruction algrithm for tianmouc raw data
+demo         : the automotive driving perception algorithm
+tianmoucv  : some basic algorithm for tianmouc raw data
+datareader : the raw data decoder and data reader
 
-│      └── demo       : the automotive driving perception algorithm
+tianmouc_evaluation_data : Part of the labeled data for demo evaluation
+├──ckpts  : 3 pytorch models used in this paper
+├── demo_data : 5 samples used in Fig 4
+├── recon_data : some clips for reconstruction
 
-│      └── tianmoucv  : some basic algorithm for tianmouc raw data
 
-│      └── datareader : the raw data decoder and data reader
-
-│      └── data(tianmouc_evaluation_data): Part of the labeled data for demo evaluation and ckpts
-
-│          └── ckpts  : 3 pytorch models used in this paper
-  
-│          └── demo_data : 5 samples used in Fig 4
-
-│          └── recon_data : some clips for reconstruction
-
-│      └── resources: some pre-run results.
-
-│      └── install.sh you can use this script for fast env building
+```
+├── data -> .../tianmouc_evaluation_data/
+│   ├── ckpts
+│   ├── demo_data
+│   └── recon_data
+├── datareader
+├── demo
+├── reconstruction
+├── resources
+└── tianmoucv
+```
 
 ## requirement
 
