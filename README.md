@@ -35,7 +35,7 @@ sh install.sh
 ```
 ## prepare Dataset
 
-download the dataset in [] and decompress it.
+download the dataset in [zenodo](https://doi.org/10.5281/zenodo.10602822) and decompress it.
 
 use soft link to create easy data access for this repo:
 
