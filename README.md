@@ -15,13 +15,13 @@
 ```
 
 
-- reconstruction : The reconstruction algrithm for tianmouc raw data
+- reconstruction : The reconstruction algorithm for TianMouC raw data
 - demo         : the automotive driving perception algorithm
-- tianmoucv  : some basic algorithm for tianmouc raw data
+- tianmoucv  : some basic algorithm for TianMouC raw data
 - datareader : the raw data decoder and data reader
 
 - tianmouc_evaluation_data : Part of the labeled data for demo evaluation
-  - ckpts  : 3 pytorch models used in this paper
+  - ckpts  : 3 Pytorch models used in this paper
   - demo_data : 5 samples used in Fig 4
   - recon_data : some clips for reconstruction
 
@@ -37,7 +37,7 @@ sh install.sh
 
 download the dataset in [zenodo](https://doi.org/10.5281/zenodo.10602822) and decompress it.
 
-use soft link to create easy data access for this repo:
+use the soft link to create easy data access for this repo:
 
 ```bash
 cd [N_pub_code]
@@ -60,7 +60,7 @@ The code is replicated using python with jupyter notebook
   
   ![fig4e](./resources/Evaluation_OF.png)
   
-You can change the  **key(name) of dataset** to find more demo for Fig4 or automotive driving 
+You can change the  **key(name) of dataset** to find more demos for Fig4 or automotive driving 
 The labeled datasets are in /data/tianmouc_evaluation_data
   
 - anti-aliasing reconstruction
