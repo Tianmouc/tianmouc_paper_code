@@ -2,9 +2,9 @@
 
 **NEWS!** The USB module of TianMouC is released.
 
-**NEWS!** The Python library of TianMouC sensor is available in [tianmoucv/Tianmoucv_preview](https://github.com/Tianmouc/Tianmoucv_preview)
+**NEWS!** The Python library of TianMouC sensor is available in [tianmouc/Tianmoucv_preview](https://github.com/Tianmouc/Tianmoucv_preview)
 
-The official version will be available at [tianmoucv/tianmocv](https://github.com/Tianmouc/tianmoucv)
+The official version will be available at [tianmouc/tianmocv](https://github.com/Tianmouc/tianmoucv)
 
 ## Arch of this project
 
