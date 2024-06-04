@@ -64,6 +64,8 @@ cd [N_pub_code]
 ln -s [your dataset path] data
 ```
 
+you can also download the checkpoints only in [google driver](https://drive.google.com/drive/folders/165vpf3qqmFDNLLqm4Y1-gvIT3OddEd9j?usp=share_link)
+
 ## EASY START
 
 The code is replicated using python with jupyter notebook
