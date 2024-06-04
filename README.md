@@ -1,4 +1,4 @@
-# TianmoucAlg
+# A vision chip with complementary pathways for open-world sensing
 
 **NEWS!** The USB module of TianMouC is released.
 
@@ -8,6 +8,7 @@ The official version will be available at [tianmouc/tianmocv](https://github.com
 
 This repository contains the code of our 2024 **Nature Cover** paper. If you use our code or refer to this project, please cite it as
 
+```bibtex
 @article{yang2024vision,
   title={A vision chip with complementary pathways for open-world sensing},
   author={Yang, Zheyu and Wang, Taoyi and Lin, Yihan and Chen, Yuguo and Zeng, Hui and Pei, Jing and Wang, Jiazheng and Liu, Xue and Zhou, Yichun and Zhang, Jianqiang and others},
@@ -18,6 +19,7 @@ This repository contains the code of our 2024 **Nature Cover** paper. If you use
   year={2024},
   publisher={Nature Publishing Group UK London}
 }
+```
 
 ## Arch of this project
 
