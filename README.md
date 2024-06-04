@@ -6,6 +6,19 @@
 
 The official version will be available at [tianmouc/tianmocv](https://github.com/Tianmouc/tianmoucv)
 
+This repository contains the code of our 2024 **Nature Cover** paper. If you use our code or refer to this project, please cite it as
+
+@article{yang2024vision,
+  title={A vision chip with complementary pathways for open-world sensing},
+  author={Yang, Zheyu and Wang, Taoyi and Lin, Yihan and Chen, Yuguo and Zeng, Hui and Pei, Jing and Wang, Jiazheng and Liu, Xue and Zhou, Yichun and Zhang, Jianqiang and others},
+  journal={Nature},
+  volume={629},
+  number={8014},
+  pages={1027--1033},
+  year={2024},
+  publisher={Nature Publishing Group UK London}
+}
+
 ## Arch of this project
 
 ```
@@ -19,7 +32,6 @@ The official version will be available at [tianmouc/tianmocv](https://github.com
 ├── resources
 └── tianmoucv
 ```
-
 
 - reconstruction : The reconstruction algorithm for TianMouC raw data
 - demo         : the automotive driving perception algorithm
